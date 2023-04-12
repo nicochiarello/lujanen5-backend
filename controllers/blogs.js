@@ -52,7 +52,7 @@ export const create = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  const fileName = req.file?.filename;
+  const fileName = !req.file ? req.file.filename : false;
 
   try {
     const updatedObject = req.body;
@@ -113,7 +113,12 @@ export const getSingle = async (req, res) => {
 
     const getLatest = await Blogs.find({}).limit(10);
 
-    res.status(200).json({ blog: getSingleItem, latest: { blogs: getLatest, title: "Recomendados:" } });
+    res
+      .status(200)
+      .json({
+        blog: getSingleItem,
+        latest: { blogs: getLatest, title: "Recomendados:" },
+      });
   } catch (error) {
     res.status(404).json({ error });
   }
