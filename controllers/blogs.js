@@ -52,7 +52,7 @@ export const create = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  const fileName = !req.file ? req.file.filename : false;
+  const fileName = req.file?.filename 
 
   try {
     const updatedObject = req.body;
